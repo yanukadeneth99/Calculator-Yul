@@ -31,7 +31,6 @@ object "Calculator" {
 
       //* Function to Subtract two numbers
       // subtract(uint256,uint256)
-      //TODO : Return Int with the correct sign
       case 0x3ef5e445 {
         
 
@@ -40,6 +39,16 @@ object "Calculator" {
 
         // If the first number is less than the second number , Store the substraction in reverse order into the memory slot 0
         if lt(calldataload(4), calldataload(0x24)) {mstore(0, sub(calldataload(0x24),calldataload(4)))}
+
+        return(0, 0x20)
+      }
+
+      //* Function to Multiply two numbers
+      // multiply(uint256,uint256)
+      case 0x165c4a16 {
+        
+        // Store the multiplication of sent numbers onto memory slot 0
+        mstore(0, mul(calldataload(4), calldataload(0x24)))
 
         return(0, 0x20)
       }
