@@ -9,14 +9,14 @@ const outputPath = path.resolve(
   "Calculator.bytecode.json"
 );
 
-const inputPath = path.resolve(__dirname, "..", "contracts", "Calculator.sol");
+const inputPath = path.resolve(__dirname, "..", "contracts", "Calculator.yul");
 
 const source = fs.readFileSync(inputPath, "utf-8");
 
 var input = {
   language: "Yul",
   sources: {
-    "Calculator.sol": {
+    "Calculator.yul": {
       content: source,
     },
   },
@@ -31,7 +31,7 @@ var input = {
 
 const compiledContract = solc.compile(JSON.stringify(input));
 const bytecode =
-  JSON.parse(compiledContract).contracts["Calculator.sol"].Calculator.evm
+  JSON.parse(compiledContract).contracts["Calculator.yul"].Calculator.evm
     .bytecode.object;
 
 fs.writeFile(outputPath, JSON.stringify(bytecode), (err) => {
