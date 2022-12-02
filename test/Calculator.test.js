@@ -38,4 +38,12 @@ describe("Calculator Contract Tests", () => {
     expect(await calculator.add(20, 20)).to.be.equal(40);
     expect(await calculator.add(100, 5000)).to.be.equal(5100);
   });
+
+  it("Should subtract the numbers", async () => {
+    const { calculator } = await deployContract();
+    expect(await calculator.subtract(5, 5)).to.not.be.null;
+    expect(await calculator.subtract(20, 20)).to.be.equal(0);
+    expect(await calculator.subtract(100, 5000)).to.be.equal(4900);
+    expect(await calculator.subtract(3300, 300)).to.be.equal(3000);
+  });
 });

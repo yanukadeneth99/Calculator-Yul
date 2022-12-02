@@ -12,7 +12,8 @@ object "Calculator" {
       // Remember the case stops after running in Yul (Dont need break)
       switch getSelector()
 
-      //* add(uint256,uint256)
+      //* Function to Add two numbers
+      // add(uint256,uint256)
       case 0x771602f7 {
 
         // Get First Number passed
@@ -25,6 +26,21 @@ object "Calculator" {
         mstore(0, add(val1, val2))
 
         // Return 0 - 32bytes
+        return(0, 0x20)
+      }
+
+      //* Function to Subtract two numbers
+      // subtract(uint256,uint256)
+      //TODO : Return Int with the correct sign
+      case 0x3ef5e445 {
+        
+
+        // If the first number is greater than the second number , Store the two numbers passed into the memory slot 0
+        if gt(calldataload(4), calldataload(0x24)) {mstore(0, sub(calldataload(4), calldataload(0x24)))}
+
+        // If the first number is less than the second number , Store the substraction in reverse order into the memory slot 0
+        if lt(calldataload(4), calldataload(0x24)) {mstore(0, sub(calldataload(0x24),calldataload(4)))}
+
         return(0, 0x20)
       }
 
