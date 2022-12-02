@@ -1,0 +1,41 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+
+// Run the following to run the test
+// npx hardhat test test/Calculator.test.js --no-compile
+
+describe("Calculator Contract Tests", () => {
+  // Function to the contract, owner and another address. Similar to BeforeEach()
+  async function deployContract() {
+    // Get the ABI and Bytecode
+    const abi = require("../build/Calculator.abi.json");
+    const bytecode = require("../build/Calculator.bytecode.json");
+
+    // Get the Owner and another address
+    const [owner, addr1] = await ethers.getSigners();
+
+    // Deploy the Contract
+    const Calculator = await ethers.getContractFactory(abi, bytecode);
+    const calculator = await Calculator.deploy();
+    await calculator.deployed();
+
+    // Log out the deployed address
+    // console.log(calculator.address);
+
+    return { calculator, owner, addr1 };
+  }
+
+  // Should deploy the contract proeprly
+  it("Deploys the contract properly", async () => {
+    const { calculator } = await deployContract();
+    await expect(calculator.address).is.properAddress;
+    await expect(calculator).is.not.null;
+  });
+
+  it("Should add the numbers", async () => {
+    const { calculator } = await deployContract();
+    expect(await calculator.add(5, 5)).to.not.be.null;
+    expect(await calculator.add(20, 20)).to.be.equal(40);
+    expect(await calculator.add(100, 5000)).to.be.equal(5100);
+  });
+});
