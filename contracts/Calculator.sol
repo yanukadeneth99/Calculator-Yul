@@ -53,6 +53,19 @@ object "Calculator" {
         return(0, 0x20)
       }
 
+      //* Function to Multiply two numbers
+      // divide(uint256,uint256)
+      case 0xf88e9fbf {
+        
+        // If the first number is greater than the second number , Store the two numbers passed into the memory slot 0
+        if gt(calldataload(4), calldataload(0x24)) {mstore(0, div(calldataload(4), calldataload(0x24)))}
+
+        // If the first number is less than the second number , Store the substraction in reverse order into the memory slot 0
+        if lt(calldataload(4), calldataload(0x24)) {mstore(0, div(calldataload(0x24),calldataload(4)))}
+
+        return(0, 0x20)
+      }
+
       // If nothing is found just revert. No Fallback
       default {
         revert(0,0)

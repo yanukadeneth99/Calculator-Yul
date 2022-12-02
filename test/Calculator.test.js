@@ -53,4 +53,11 @@ describe("Calculator Contract Tests", () => {
     expect(await calculator.multiply(20, 20)).to.be.equal(400);
     expect(await calculator.multiply(100, 5000)).to.be.equal(500000);
   });
+
+  it("Should divide the numbers", async () => {
+    const { calculator } = await deployContract();
+    expect(await calculator.divide(5, 5)).to.not.be.null;
+    expect(await calculator.divide(20, 2)).to.be.equal(10);
+    expect(await calculator.divide(100, 5000)).to.be.equal(50);
+  });
 });
