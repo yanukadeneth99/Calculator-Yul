@@ -13,7 +13,7 @@ You can perform the following operations interacting with this contract
 
 ## TODO
 
-- [ ] Make the program with `int` values (Negative).
+- [ ] Make the program work with `int` values (Negative).
 
 ## Code
 
